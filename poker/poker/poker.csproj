@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TripCalc</RootNamespace>
-    <AssemblyName>TripCalc</AssemblyName>
+    <RootNamespace>Poker</RootNamespace>
+    <AssemblyName>Poker</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <UseIISExpress>true</UseIISExpress>
@@ -60,31 +60,26 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\poker.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <BrowseToURL>poker.xml</BrowseToURL>
+    <Content Include="poker.xml" />
+    <Content Include="Poker.svc" />
+    <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="TripExpenses.svc" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TripExpenses.svc.cs">
-      <DependentUpon>TripExpenses.svc</DependentUpon>
-    </Compile>
-    <Compile Include="ITripExpenses.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Poker.svc.cs" />
+    <Compile Include="IPoker.cs" />
+    <Compile Include="assemblyinfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <WCFMetadata Include="service references\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <None Include="web.debug.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
+    <None Include="web.release.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>

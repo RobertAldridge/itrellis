@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
+﻿
+// file name: poker.svc.cs
 
+using ArgumentNullException = System.ArgumentNullException;
+using Console = System.Console;
 using DataContractJsonSerializer = System.Runtime.Serialization.Json.DataContractJsonSerializer;
 using Debugger = System.Diagnostics.Debugger;
 using DecimalList = System.Collections.Generic.List<decimal>;
-using PokerHandList = System.Collections.Generic.List<TripCalc.TripExpenses.PokerHand>;
+using PokerHandList = System.Collections.Generic.List<Poker.Poker.PokerHand>;
 using Math = System.Math;
 using MemoryStream = System.IO.MemoryStream;
 using StreamReader = System.IO.StreamReader;
@@ -17,11 +14,9 @@ using XmlDocument = System.Xml.XmlDocument;
 using XmlTextReader = System.Xml.XmlTextReader;
 using WhitespaceHandling = System.Xml.WhitespaceHandling;
 
-namespace TripCalc
+namespace Poker
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "TripExpenses" in code, svc and config file together.
-    // NOTE: In order to launch WCF Test Client for testing this service, please select TripExpenses.svc or TripExpenses.svc.cs at the Solution Explorer and start debugging.
-    public class TripExpenses : ITripExpenses
+    public class Poker : IPoker
     {
         public struct PokerCard
         {
@@ -654,13 +649,10 @@ namespace TripCalc
             }
         }
 
-        private string PokerHandParserWrapper()
+        public string OminousPokerFunction()
         {
-            //.Load(Path.Combine(HostingEnvironment.ApplicationPhysicalPath, AvailabilityFileName));
-
-           // MemoryStream stream = new MemoryStream();
             XmlDocument xmlDocument = new XmlDocument();
-            XmlTextReader xmlReader = new XmlTextReader("c:\\business\\TripCalc\\App_Data\\poker.xml");
+            XmlTextReader xmlReader = new XmlTextReader("c:\\business\\Poker\\App_Data\\poker.xml");
             xmlReader.WhitespaceHandling = System.Xml.WhitespaceHandling.None;
             xmlReader.MoveToContent();
 
@@ -737,10 +729,10 @@ namespace TripCalc
             xmlDocument.Load(xmlReader);
             xmlDocument.Save(Console.Out);
 
-            return CompareHands(pokerHands.ToArray() );
+            return CompareHands(pokerHands);
         }
 
-        private string CompareHands(PokerHand[] hands)
+        private static string CompareHands(PokerHandList hands)
         {
             PokerHandList[] bucketSort = new PokerHandList[9];
             for(int index = 0; index<bucketSort.Length; index++)
@@ -807,6 +799,7 @@ namespace TripCalc
 
                     if(highestHandIndex == -1)
                     {
+                        // a game where the highest ranking hand is tied for more than one person is a loss
                         return "result: tie";
                     }
 
@@ -814,123 +807,8 @@ namespace TripCalc
                 }
             }
 
-            // rank hands by HighCard, Pair, TwoPairs, ThreeOfAKind, Straight, Flush, FullHouse, FourOfAKind, StraightFlush
-            // hands with equal rank are compared for that rank's score
-            //
-            // hands with equal rank and equal score at that rank are compared for the next highest rank and score of that rank that either hand fulfills
-            //
-            // a game where the highest ranking hand is tied for more than one person is a loss
-
             return "result: no players";
         }
-
-        private void ExampleClient()
-        {
-            decimal[] expenseReport = new decimal[4] { 15.00m, 15.01m, 3.00m, 3.01m };
-
-            return;
-
-            MemoryStream inputToWebApi = new MemoryStream();
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(decimal) );
-
-            foreach(decimal expense in expenseReport)
-            {
-                serializer.WriteObject(inputToWebApi, expense);
-            }
-
-            inputToWebApi.Position = 0;
-
-            StreamReader reader = new StreamReader(inputToWebApi);
-
-            string readerOutput = reader.ReadToEnd();
-            Console.WriteLine("JSON start");
-            Console.WriteLine(readerOutput);
-            Console.WriteLine("JSON end");
-
-            inputToWebApi.Position = 0;
-
-            ExampleServer(inputToWebApi);
-        }
-
-        private decimal ExampleServer(MemoryStream inputToWebApi)
-        {
-            DecimalList expenseReport = new DecimalList();
-
-            DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(decimal));
-            bool flaggedException = false;
-            while(flaggedException == false)
-            {
-                decimal expense = 0.0m;
-                try
-                {
-                    expense = (decimal)deserializer.ReadObject(inputToWebApi);
-                }
-                catch
-                {
-                    flaggedException = true;
-                }
-
-                expenseReport.Add(expense);
-            }
-
-            // calculate total amount of money spent
-            decimal sum = 0.0m;
-            foreach(decimal expense in expenseReport)
-            {
-                sum += expense;
-            }
-
-            // calculate how much each person should have spent
-            decimal average = sum / (decimal)expenseReport.Count;
-
-            // calculate the total amount to be given up by everyone who underpaid by more than one cent
-            decimal difference = 0.0m;
-            foreach(decimal expense in expenseReport)
-            {
-                if(average >= (expense + 0.01m))
-                {
-                    decimal truncated = Math.Floor(100.0m * (average - expense)) / 100.0m;
-                    difference += truncated;
-                }
-            }
-
-            MemoryStream outputFromWebApi = new MemoryStream();
-
-            return difference;
-        }
-
-        public decimal GetData(decimal[] expenseReport)
-        {
-            //ExampleClient();
-            PokerHandParserWrapper();
-            return 0.0m;
-
-            // calculate total amount of money spent
-            decimal sum = 0.0m;
-            foreach(decimal expense in expenseReport)
-            {
-                sum += expense;
-            }
-
-            // calculate how much each person should have spent
-            decimal average = sum / (decimal)expenseReport.Length;
-
-            // calculate the total amount to be given up by everyone who underpaid by more than one cent
-            decimal difference = 0.0m;
-            foreach(decimal expense in expenseReport)
-            {
-                if(average >= (expense + 0.01m) )
-                {
-                    decimal truncated = Math.Floor(100.0m * (average - expense) ) / 100.0m;
-                    difference += truncated;
-                }
-            }
-
-            MemoryStream outputFromWebApi = new MemoryStream();
-
-            return difference;
-        }
-
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
             if(composite == null)
