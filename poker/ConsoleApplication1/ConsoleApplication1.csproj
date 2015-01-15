@@ -56,17 +56,14 @@
     <None Include="Service References\ServiceReference1\ConsoleApplication1.ServiceReference1.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ServiceReference1\TripExpenses.wsdl" />
-    <None Include="Service References\ServiceReference1\TripExpenses.xsd">
+    <None Include="Service References\ServiceReference1\Poker.wsdl" />
+    <None Include="Service References\ServiceReference1\Poker.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\TripExpenses1.xsd">
+    <None Include="Service References\ServiceReference1\Poker1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceReference1\TripExpenses2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceReference1\TripExpenses3.xsd">
+    <None Include="Service References\ServiceReference1\Poker2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -77,7 +74,7 @@
     <WCFMetadataStorage Include="Service References\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ServiceReference1\TripExpenses.disco" />
+    <None Include="Service References\ServiceReference1\Poker.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\ServiceReference1\configuration91.svcinfo" />

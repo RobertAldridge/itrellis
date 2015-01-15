@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3049d221-3519-42b7-a1cd-4c80c2bc1f53" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ea09af92-e787-435d-a7e9-6edad30c1b7f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,15 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:1682/TripExpenses.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:1682/Poker.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="TripExpenses.xsd" MetadataType="Schema" ID="25aadd11-ed98-4fea-8db9-3831fcbd1c1e" SourceId="1" SourceUrl="http://localhost:1682/TripExpenses.svc?xsd=xsd0" />
-    <MetadataFile FileName="TripExpenses1.xsd" MetadataType="Schema" ID="a2f9ce0d-8288-41dc-8f71-8a7a9c0dec94" SourceId="1" SourceUrl="http://localhost:1682/TripExpenses.svc?xsd=xsd1" />
-    <MetadataFile FileName="TripExpenses.disco" MetadataType="Disco" ID="bbfdaec5-b130-4fea-a50a-b3b9a70ab459" SourceId="1" SourceUrl="http://localhost:1682/TripExpenses.svc?disco" />
-    <MetadataFile FileName="TripExpenses2.xsd" MetadataType="Schema" ID="b0c8975e-25f8-41b3-8189-f41c51b7e389" SourceId="1" SourceUrl="http://localhost:1682/TripExpenses.svc?xsd=xsd2" />
-    <MetadataFile FileName="TripExpenses.wsdl" MetadataType="Wsdl" ID="ad55033f-9f49-4cd7-bbb4-3b1235f31065" SourceId="1" SourceUrl="http://localhost:1682/TripExpenses.svc?wsdl" />
-    <MetadataFile FileName="TripExpenses3.xsd" MetadataType="Schema" ID="48bcd593-974b-4452-b4c5-164c6afa9bd4" SourceId="1" SourceUrl="http://localhost:1682/TripExpenses.svc?xsd=xsd3" />
+    <MetadataFile FileName="Poker.xsd" MetadataType="Schema" ID="da791b48-b213-4887-b108-15163f65a399" SourceId="1" SourceUrl="http://localhost:1682/Poker.svc?xsd=xsd2" />
+    <MetadataFile FileName="Poker.wsdl" MetadataType="Wsdl" ID="06025b3f-bb17-40d4-b519-edf2a6000613" SourceId="1" SourceUrl="http://localhost:1682/Poker.svc?wsdl" />
+    <MetadataFile FileName="Poker1.xsd" MetadataType="Schema" ID="0dee0ea3-3217-49f8-a8df-ebee0a094163" SourceId="1" SourceUrl="http://localhost:1682/Poker.svc?xsd=xsd1" />
+    <MetadataFile FileName="Poker.disco" MetadataType="Disco" ID="440dc3ef-f3d9-426b-972e-efc6f7fbf755" SourceId="1" SourceUrl="http://localhost:1682/Poker.svc?disco" />
+    <MetadataFile FileName="Poker2.xsd" MetadataType="Schema" ID="40168e88-3e64-4944-ba78-52e4e0696956" SourceId="1" SourceUrl="http://localhost:1682/Poker.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

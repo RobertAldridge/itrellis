@@ -15,7 +15,7 @@ namespace ConsoleApplication1.ServiceReference1 {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/TripCalc")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/Poker")]
     [System.SerializableAttribute()]
     public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -75,55 +75,85 @@ namespace ConsoleApplication1.ServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.ITripExpenses")]
-    public interface ITripExpenses {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IPoker")]
+    public interface IPoker {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITripExpenses/GetData", ReplyAction="http://tempuri.org/ITripExpenses/GetDataResponse")]
-        decimal GetData(decimal[] expenseReport);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/OminousPokerFunction", ReplyAction="http://tempuri.org/IPoker/OminousPokerFunctionResponse")]
+        string OminousPokerFunction(System.Xml.Linq.XElement input);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITripExpenses/GetData", ReplyAction="http://tempuri.org/ITripExpenses/GetDataResponse")]
-        System.Threading.Tasks.Task<decimal> GetDataAsync(decimal[] expenseReport);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/OminousPokerFunction", ReplyAction="http://tempuri.org/IPoker/OminousPokerFunctionResponse")]
+        System.Threading.Tasks.Task<string> OminousPokerFunctionAsync(System.Xml.Linq.XElement input);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITripExpenses/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ITripExpenses/GetDataUsingDataContractResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IPoker/GetDataUsingDataContractResponse")]
         ConsoleApplication1.ServiceReference1.CompositeType GetDataUsingDataContract(ConsoleApplication1.ServiceReference1.CompositeType composite);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ITripExpenses/GetDataUsingDataContract", ReplyAction="http://tempuri.org/ITripExpenses/GetDataUsingDataContractResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IPoker/GetDataUsingDataContractResponse")]
         System.Threading.Tasks.Task<ConsoleApplication1.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ConsoleApplication1.ServiceReference1.CompositeType composite);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/GetBooksList", ReplyAction="http://tempuri.org/IPoker/GetBooksListResponse")]
+        int GetBooksList();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/GetBooksList", ReplyAction="http://tempuri.org/IPoker/GetBooksListResponse")]
+        System.Threading.Tasks.Task<int> GetBooksListAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/GetBookById", ReplyAction="http://tempuri.org/IPoker/GetBookByIdResponse")]
+        int GetBookById(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/GetBookById", ReplyAction="http://tempuri.org/IPoker/GetBookByIdResponse")]
+        System.Threading.Tasks.Task<int> GetBookByIdAsync(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/AddBook", ReplyAction="http://tempuri.org/IPoker/AddBookResponse")]
+        void AddBook(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/AddBook", ReplyAction="http://tempuri.org/IPoker/AddBookResponse")]
+        System.Threading.Tasks.Task AddBookAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/UpdateBook", ReplyAction="http://tempuri.org/IPoker/UpdateBookResponse")]
+        void UpdateBook(string id, string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/UpdateBook", ReplyAction="http://tempuri.org/IPoker/UpdateBookResponse")]
+        System.Threading.Tasks.Task UpdateBookAsync(string id, string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/DeleteBook", ReplyAction="http://tempuri.org/IPoker/DeleteBookResponse")]
+        void DeleteBook(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPoker/DeleteBook", ReplyAction="http://tempuri.org/IPoker/DeleteBookResponse")]
+        System.Threading.Tasks.Task DeleteBookAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ITripExpensesChannel : ConsoleApplication1.ServiceReference1.ITripExpenses, System.ServiceModel.IClientChannel {
+    public interface IPokerChannel : ConsoleApplication1.ServiceReference1.IPoker, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class TripExpensesClient : System.ServiceModel.ClientBase<ConsoleApplication1.ServiceReference1.ITripExpenses>, ConsoleApplication1.ServiceReference1.ITripExpenses {
+    public partial class PokerClient : System.ServiceModel.ClientBase<ConsoleApplication1.ServiceReference1.IPoker>, ConsoleApplication1.ServiceReference1.IPoker {
         
-        public TripExpensesClient() {
+        public PokerClient() {
         }
         
-        public TripExpensesClient(string endpointConfigurationName) : 
+        public PokerClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public TripExpensesClient(string endpointConfigurationName, string remoteAddress) : 
+        public PokerClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public TripExpensesClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public PokerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public TripExpensesClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public PokerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         
-        public decimal GetData(decimal[] expenseReport) {
-            return base.Channel.GetData(expenseReport);
+        public string OminousPokerFunction(System.Xml.Linq.XElement input) {
+            return base.Channel.OminousPokerFunction(input);
         }
         
-        public System.Threading.Tasks.Task<decimal> GetDataAsync(decimal[] expenseReport) {
-            return base.Channel.GetDataAsync(expenseReport);
+        public System.Threading.Tasks.Task<string> OminousPokerFunctionAsync(System.Xml.Linq.XElement input) {
+            return base.Channel.OminousPokerFunctionAsync(input);
         }
         
         public ConsoleApplication1.ServiceReference1.CompositeType GetDataUsingDataContract(ConsoleApplication1.ServiceReference1.CompositeType composite) {
@@ -132,6 +162,46 @@ namespace ConsoleApplication1.ServiceReference1 {
         
         public System.Threading.Tasks.Task<ConsoleApplication1.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(ConsoleApplication1.ServiceReference1.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
+        }
+        
+        public int GetBooksList() {
+            return base.Channel.GetBooksList();
+        }
+        
+        public System.Threading.Tasks.Task<int> GetBooksListAsync() {
+            return base.Channel.GetBooksListAsync();
+        }
+        
+        public int GetBookById(string id) {
+            return base.Channel.GetBookById(id);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetBookByIdAsync(string id) {
+            return base.Channel.GetBookByIdAsync(id);
+        }
+        
+        public void AddBook(string name) {
+            base.Channel.AddBook(name);
+        }
+        
+        public System.Threading.Tasks.Task AddBookAsync(string name) {
+            return base.Channel.AddBookAsync(name);
+        }
+        
+        public void UpdateBook(string id, string name) {
+            base.Channel.UpdateBook(id, name);
+        }
+        
+        public System.Threading.Tasks.Task UpdateBookAsync(string id, string name) {
+            return base.Channel.UpdateBookAsync(id, name);
+        }
+        
+        public void DeleteBook(string id) {
+            base.Channel.DeleteBook(id);
+        }
+        
+        public System.Threading.Tasks.Task DeleteBookAsync(string id) {
+            return base.Channel.DeleteBookAsync(id);
         }
     }
 }

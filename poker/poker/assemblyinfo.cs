@@ -11,7 +11,7 @@
 [assembly: System.Reflection.AssemblyConfiguration("")]
 [assembly: System.Reflection.AssemblyCompany("")]
 [assembly: System.Reflection.AssemblyProduct("Poker")]
-[assembly: System.Reflection.AssemblyCopyright("popyright © 2015")]
+[assembly: System.Reflection.AssemblyCopyright("copyright © 2015")]
 [assembly: System.Reflection.AssemblyTrademark("")]
 [assembly: System.Reflection.AssemblyCulture("")]
 

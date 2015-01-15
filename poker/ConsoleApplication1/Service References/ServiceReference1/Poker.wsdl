@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Poker" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:1682/Poker.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:1682/Poker.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:1682/Poker.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Poker" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IPoker_OminousPokerFunction_InputMessage">
+    <wsdl:part name="parameters" element="tns:OminousPokerFunction" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_OminousPokerFunction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OminousPokerFunctionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_GetBooksList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooksList" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_GetBooksList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBooksListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_GetBookById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBookById" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_GetBookById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBookByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_AddBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddBook" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_AddBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_UpdateBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBook" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_UpdateBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateBookResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_DeleteBook_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBook" />
+  </wsdl:message>
+  <wsdl:message name="IPoker_DeleteBook_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteBookResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPoker">
+    <wsdl:operation name="OminousPokerFunction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/OminousPokerFunction" message="tns:IPoker_OminousPokerFunction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/OminousPokerFunctionResponse" message="tns:IPoker_OminousPokerFunction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/GetDataUsingDataContract" message="tns:IPoker_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/GetDataUsingDataContractResponse" message="tns:IPoker_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBooksList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/GetBooksList" message="tns:IPoker_GetBooksList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/GetBooksListResponse" message="tns:IPoker_GetBooksList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBookById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/GetBookById" message="tns:IPoker_GetBookById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/GetBookByIdResponse" message="tns:IPoker_GetBookById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/AddBook" message="tns:IPoker_AddBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/AddBookResponse" message="tns:IPoker_AddBook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/UpdateBook" message="tns:IPoker_UpdateBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/UpdateBookResponse" message="tns:IPoker_UpdateBook_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBook">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/DeleteBook" message="tns:IPoker_DeleteBook_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/DeleteBookResponse" message="tns:IPoker_DeleteBook_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPoker" type="tns:IPoker">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="OminousPokerFunction">
+      <soap:operation soapAction="http://tempuri.org/IPoker/OminousPokerFunction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap:operation soapAction="http://tempuri.org/IPoker/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBooksList">
+      <soap:operation soapAction="http://tempuri.org/IPoker/GetBooksList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBookById">
+      <soap:operation soapAction="http://tempuri.org/IPoker/GetBookById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBook">
+      <soap:operation soapAction="http://tempuri.org/IPoker/AddBook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBook">
+      <soap:operation soapAction="http://tempuri.org/IPoker/UpdateBook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBook">
+      <soap:operation soapAction="http://tempuri.org/IPoker/DeleteBook" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Poker">
+    <wsdl:port name="BasicHttpBinding_IPoker" binding="tns:BasicHttpBinding_IPoker">
+      <soap:address location="http://localhost:1682/Poker.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

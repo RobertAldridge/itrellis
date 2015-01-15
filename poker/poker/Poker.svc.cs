@@ -9,8 +9,12 @@ using DecimalList = System.Collections.Generic.List<decimal>;
 using PokerHandList = System.Collections.Generic.List<Poker.Poker.PokerHand>;
 using Math = System.Math;
 using MemoryStream = System.IO.MemoryStream;
+using ReaderOptions = System.Xml.Linq.ReaderOptions;
 using StreamReader = System.IO.StreamReader;
 using XmlDocument = System.Xml.XmlDocument;
+using XElement = System.Xml.Linq.XElement;
+using XmlReader = System.Xml.XmlReader;
+using XmlReaderSettings = System.Xml.XmlReaderSettings;
 using XmlTextReader = System.Xml.XmlTextReader;
 using WhitespaceHandling = System.Xml.WhitespaceHandling;
 
@@ -649,11 +653,12 @@ namespace Poker
             }
         }
 
-        public string OminousPokerFunction()
+        public string OminousPokerFunction(XElement input)
         {
             XmlDocument xmlDocument = new XmlDocument();
-            XmlTextReader xmlReader = new XmlTextReader("c:\\business\\Poker\\App_Data\\poker.xml");
-            xmlReader.WhitespaceHandling = System.Xml.WhitespaceHandling.None;
+            XmlReader xmlReader = XmlReader.Create(input.CreateReader(ReaderOptions.OmitDuplicateNamespaces),
+                new XmlReaderSettings(){IgnoreWhitespace = true} );
+
             xmlReader.MoveToContent();
 
             PokerHandList pokerHands = new PokerHandList();
