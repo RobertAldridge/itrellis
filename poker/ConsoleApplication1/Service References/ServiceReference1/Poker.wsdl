@@ -19,36 +19,6 @@
   <wsdl:message name="IPoker_GetDataUsingDataContract_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
   </wsdl:message>
-  <wsdl:message name="IPoker_GetBooksList_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetBooksList" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_GetBooksList_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetBooksListResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_GetBookById_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetBookById" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_GetBookById_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetBookByIdResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_AddBook_InputMessage">
-    <wsdl:part name="parameters" element="tns:AddBook" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_AddBook_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AddBookResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_UpdateBook_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBook" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_UpdateBook_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateBookResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_DeleteBook_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteBook" />
-  </wsdl:message>
-  <wsdl:message name="IPoker_DeleteBook_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeleteBookResponse" />
-  </wsdl:message>
   <wsdl:portType name="IPoker">
     <wsdl:operation name="OminousPokerFunction">
       <wsdl:input wsaw:Action="http://tempuri.org/IPoker/OminousPokerFunction" message="tns:IPoker_OminousPokerFunction_InputMessage" />
@@ -57,26 +27,6 @@
     <wsdl:operation name="GetDataUsingDataContract">
       <wsdl:input wsaw:Action="http://tempuri.org/IPoker/GetDataUsingDataContract" message="tns:IPoker_GetDataUsingDataContract_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPoker/GetDataUsingDataContractResponse" message="tns:IPoker_GetDataUsingDataContract_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetBooksList">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/GetBooksList" message="tns:IPoker_GetBooksList_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/GetBooksListResponse" message="tns:IPoker_GetBooksList_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetBookById">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/GetBookById" message="tns:IPoker_GetBookById_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/GetBookByIdResponse" message="tns:IPoker_GetBookById_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="AddBook">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/AddBook" message="tns:IPoker_AddBook_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/AddBookResponse" message="tns:IPoker_AddBook_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBook">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/UpdateBook" message="tns:IPoker_UpdateBook_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/UpdateBookResponse" message="tns:IPoker_UpdateBook_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBook">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPoker/DeleteBook" message="tns:IPoker_DeleteBook_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPoker/DeleteBookResponse" message="tns:IPoker_DeleteBook_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPoker" type="tns:IPoker">
@@ -92,51 +42,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetDataUsingDataContract">
       <soap:operation soapAction="http://tempuri.org/IPoker/GetDataUsingDataContract" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetBooksList">
-      <soap:operation soapAction="http://tempuri.org/IPoker/GetBooksList" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetBookById">
-      <soap:operation soapAction="http://tempuri.org/IPoker/GetBookById" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AddBook">
-      <soap:operation soapAction="http://tempuri.org/IPoker/AddBook" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateBook">
-      <soap:operation soapAction="http://tempuri.org/IPoker/UpdateBook" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeleteBook">
-      <soap:operation soapAction="http://tempuri.org/IPoker/DeleteBook" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

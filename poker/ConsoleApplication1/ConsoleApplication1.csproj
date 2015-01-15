@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\System.Xml.Linq.XElement.datasource" />
     <None Include="Service References\ServiceReference1\ConsoleApplication1.ServiceReference1.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

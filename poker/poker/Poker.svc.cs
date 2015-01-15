@@ -653,7 +653,7 @@ namespace Poker
             }
         }
 
-        public string OminousPokerFunction(XElement input)
+        public XElement OminousPokerFunction(XElement input)
         {
             XmlDocument xmlDocument = new XmlDocument();
             XmlReader xmlReader = XmlReader.Create(input.CreateReader(ReaderOptions.OmitDuplicateNamespaces),
@@ -731,14 +731,19 @@ namespace Poker
             if(index!=0 && index!=5)
                 Debugger.Break();
 
-            xmlDocument.Load(xmlReader);
-            xmlDocument.Save(Console.Out);
+            xmlReader.Dispose();
 
             return CompareHands(pokerHands);
         }
 
-        private static string CompareHands(PokerHandList hands)
+        private static XElement CompareHands(PokerHandList hands)
         {
+            string xml =
+            "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n" +
+            "<results>\r\n" +
+            "  <result>#USER# #STATUS#</result>\r\n" +
+            "</results>";
+
             PokerHandList[] bucketSort = new PokerHandList[9];
             for(int index = 0; index<bucketSort.Length; index++)
             {
@@ -768,7 +773,9 @@ namespace Poker
 
                     if(bucket.Count == 1)
                     {
-                        return "result: " + highestHand.name + " wins";
+                        xml = xml.Replace("#USER#", highestHand.name);
+                        xml = xml.Replace("#STATUS#", "wins");
+                        return XElement.Parse(xml);
                     }
 
                     int compareResult = 0;
@@ -805,14 +812,20 @@ namespace Poker
                     if(highestHandIndex == -1)
                     {
                         // a game where the highest ranking hand is tied for more than one person is a loss
-                        return "result: tie";
+                        xml = xml.Replace("#USER#", "A");
+                        xml = xml.Replace("#STATUS#", "TIE");
+                        return XElement.Parse(xml);
                     }
 
-                    return "result: " + highestHand.name + " wins";
+                    xml = xml.Replace("#USER#", highestHand.name);
+                    xml = xml.Replace("#STATUS#", "wins");
+                    return XElement.Parse(xml);
                 }
             }
 
-            return "result: no players";
+            xml = xml.Replace("#USER#", "NO");
+            xml = xml.Replace("#STATUS#", "PLAYERS");
+            return XElement.Parse(xml);
         }
         public CompositeType GetDataUsingDataContract(CompositeType composite)
         {
