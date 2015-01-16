@@ -60,7 +60,6 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="poker.xml" />
     <Content Include="Poker.svc" />
     <Content Include="web.config">
       <SubType>Designer</SubType>

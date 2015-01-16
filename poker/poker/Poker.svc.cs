@@ -11,7 +11,7 @@ using Math = System.Math;
 using MemoryStream = System.IO.MemoryStream;
 using ReaderOptions = System.Xml.Linq.ReaderOptions;
 using StreamReader = System.IO.StreamReader;
-using XmlDocument = System.Xml.XmlDocument;
+//using XmlDocument = System.Xml.XmlDocument;
 using XElement = System.Xml.Linq.XElement;
 using XmlReader = System.Xml.XmlReader;
 using XmlReaderSettings = System.Xml.XmlReaderSettings;
@@ -655,9 +655,7 @@ namespace Poker
 
         public XElement OminousPokerFunction(XElement input)
         {
-            XmlDocument xmlDocument = new XmlDocument();
-            XmlReader xmlReader = XmlReader.Create(input.CreateReader(ReaderOptions.OmitDuplicateNamespaces),
-                new XmlReaderSettings(){IgnoreWhitespace = true} );
+            XmlReader xmlReader = input.CreateReader(ReaderOptions.None);
 
             xmlReader.MoveToContent();
 
