@@ -12,10 +12,12 @@ using Message = System.ServiceModel.Channels.Message;
 using PokerClient = ConsoleApplication1.ServiceReference1.PokerClient;
 using ReaderOptions = System.Xml.Linq.ReaderOptions;
 using Stream = System.IO.Stream;
+using StringList = System.Collections.Generic.List<string>;
 using StreamReader = System.IO.StreamReader;
 using WebRequest = System.Net.WebRequest;
 using XElement = System.Xml.Linq.XElement;
 //using XmlDocument = System.Xml.XmlDocument;
+//using XName = System.Xml.Linq.XName;
 using XmlReader = System.Xml.XmlReader;
 using XmlReaderSettings = System.Xml.XmlReaderSettings;
 using XmlWriter = System.Xml.XmlWriter;
@@ -33,12 +35,15 @@ namespace PokerTest
 
             PokerClient blah = new PokerClient("BasicHttpBinding_IPoker", "http://localhost:1682/Poker.svc");
 
-            string[] inputDataFileNames = Directory.GetFiles(PokerTest.s_inputDataFolderName, "*.xml");
-            string[] outputVerifyDataFileNames = Directory.GetFiles(PokerTest.s_outputVerifyDataFolderName, "*.xml");
+            StringList inputDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_inputDataFolderName, "*.xml"));
+            inputDataFileNames.Sort();
 
-            Debug.Assert(inputDataFileNames.Length == outputVerifyDataFileNames.Length);
+            StringList outputVerifyDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_outputVerifyDataFolderName, "*.xml"));
+            outputVerifyDataFileNames.Sort();
 
-            for(int index = 0; index<PokerTest.s_inputDataFolderName.Length; index++)
+            Debug.Assert(inputDataFileNames.Count == outputVerifyDataFileNames.Count);
+
+            for(int index = 0; index<inputDataFileNames.Count; index++)
             {
                 string inputContent = File.ReadAllText(inputDataFileNames[index] );
                 XElement xElementInput = XElement.Parse(inputContent);
@@ -48,11 +53,20 @@ namespace PokerTest
                 string verifyContent = File.ReadAllText(outputVerifyDataFileNames[index]);
                 XElement xElementVerify = XElement.Parse(verifyContent);
 
-                if(XElement.DeepEquals(xElementInput, xElementOutput))
+                string blahVerify = xElementVerify.ToString();
+                while(blahVerify.Contains("  "))
+                    blahVerify = blahVerify.Replace("  ", " ");
+
+                string blahOutput = xElementOutput.ToString();
+                while(blahOutput.Contains("  "))
+                    blahOutput = blahOutput.Replace("  ", " ");
+                blahOutput = blahOutput.Replace(" xmlns=\"\"", "");
+
+                if(string.Equals(blahVerify, blahOutput, System.StringComparison.InvariantCultureIgnoreCase))
                     resultCount++;
             }
 
-            if(resultCount==inputDataFileNames.Length)
+            if(resultCount==inputDataFileNames.Count)
             {
                 return 0;
             }

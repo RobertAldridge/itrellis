@@ -738,7 +738,7 @@ namespace Poker
         {
             string xml =
             "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n" +
-            "<results>\r\n" +
+            "<results xmlns=\"\">\r\n" +
             "  <result>#USER# #STATUS#</result>\r\n" +
             "</results>";
 
