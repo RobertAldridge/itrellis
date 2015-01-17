@@ -20,7 +20,19 @@ namespace PokerTest
         {
             int resultCount = 0;
 
-            PokerClient blah = new PokerClient("BasicHttpBinding_IPoker", "http://localhost:1682/Poker.svc");
+            Console.WriteLine("poker tests start");
+
+            PokerClient blah;
+            try
+            {
+                blah = new PokerClient("BasicHttpBinding_IPoker", "http://localhost:1682/Poker.svc");
+            }
+            catch
+            {
+                Console.WriteLine("failure to connect endpoint");
+                Console.WriteLine("all tests fail");
+                return -1;
+            }
 
             // read list of input file names to web service
             StringList inputDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_inputDataFolderName, "*.xml"));
@@ -43,7 +55,16 @@ namespace PokerTest
                 XElement xElementInput = XElement.Parse(inputContent);
 
                 // call web service api
-                XElement xElementOutput = blah.OminousPokerFunction(xElementInput);
+                XElement xElementOutput;
+                try
+                {
+                    xElementOutput = blah.OminousPokerFunction(xElementInput);
+                }
+                catch
+                {
+                    Console.WriteLine("endpoint function failure");
+                    continue;
+                }
 
                 // load verification content and convert to XElement
                 string verifyContent = File.ReadAllText(outputVerifyDataFileNames[index]);
@@ -69,10 +90,15 @@ namespace PokerTest
             if(resultCount==inputDataFileNames.Count)
             {
                 Console.WriteLine("tests all pass");
+                Console.WriteLine("poker tests end");
                 return 0;
             }
-            
-            Console.WriteLine(numFail.ToString() + "tests fail");
+            else if(resultCount==0)
+                Console.WriteLine("all tests fail");
+            else
+                Console.WriteLine(numFail.ToString() + " tests fail");
+
+            Console.WriteLine("poker tests end");
             return -1;
         }
     }
