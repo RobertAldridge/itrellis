@@ -696,7 +696,12 @@ namespace Poker
                     return XElement.Parse(xml);
 
                 while(!xmlReader.EOF && xmlReader.Name != "card")
-                     xmlReader.Read();
+                {
+                    if(xmlReader.Name == "hand")
+                        return XElement.Parse(xml);
+
+                    xmlReader.Read();
+                }
                 if(!xmlReader.EOF)
                     xmlReader.MoveToContent();
 

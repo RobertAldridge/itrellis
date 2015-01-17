@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hands>
+  <hand>
+	<name>Black</name>
+	<card>QC</card>
+	<card>4S</card>
+	<card>4C</card>
+	<card>KD</card>
+	<card>4D</card>
+  </hand>
+  <hand>
+	<name>White</name>
+	<card>QH</card>
+	<card>5D</card>
+	<card>5H</card>
+	<card>AD</card>
+	<card>5S</card>
+  </hand>
+</hands>
