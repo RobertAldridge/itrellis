@@ -655,6 +655,12 @@ namespace Poker
 
         public XElement OminousPokerFunction(XElement input)
         {
+            string xml =
+            "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n" +
+            "<results xmlns=\"\">\r\n" +
+            "  <result>MALFORMED DATA</result>\r\n" +
+            "</results>";
+
             XmlReader xmlReader = input.CreateReader(ReaderOptions.None);
 
             xmlReader.MoveToContent();
@@ -663,11 +669,19 @@ namespace Poker
 
             xmlReader.Read();
 
-            int index = 0;
+            // parse the xml, checked for malformed data
+            int index = -1;
             while(!xmlReader.EOF)
             {
-                while(!xmlReader.EOF && xmlReader.Name != "name")
+                index = -1;
+
+                while(!xmlReader.EOF && xmlReader.Name != "name" && xmlReader.Name != "card")
                     xmlReader.Read();
+
+                // check for no name
+                if(xmlReader.Name == "card")
+                    return XElement.Parse(xml);
+
                 if(!xmlReader.EOF)
                     xmlReader.MoveToContent();
 
@@ -678,58 +692,76 @@ namespace Poker
                 newHand.cards = new PokerCard[5];
                 newHand.name = xmlReader.ReadInnerXml();
 
+                if(newHand.name=="")
+                    return XElement.Parse(xml);
+
                 while(!xmlReader.EOF && xmlReader.Name != "card")
                      xmlReader.Read();
                 if(!xmlReader.EOF)
                     xmlReader.MoveToContent();
 
-                index = 0;
                 for(index = 0; index<5 && !xmlReader.EOF; index++)
                 {
                     string value = xmlReader.ReadInnerXml();
                     if(!xmlReader.EOF)
                         xmlReader.MoveToContent();
 
-                    switch(value[0].ToString() )
+                    // verify and convert card value
+                    try
                     {
-                    case "2":newHand.cards[index].value = 2;break;
-                    case "3":newHand.cards[index].value = 3;break;
-                    case "4":newHand.cards[index].value = 4;break;
-                    case "5":newHand.cards[index].value = 5;break;
-                    case "6":newHand.cards[index].value = 6;break;
-                    case "7":newHand.cards[index].value = 7;break;
-                    case "8":newHand.cards[index].value = 8;break;
-                    case "9":newHand.cards[index].value = 9;break;
-                    case "X":newHand.cards[index].value = 10;break;
-                    case "J":newHand.cards[index].value = 11;break; // J
-                    case "Q":newHand.cards[index].value = 12;break; // Q
-                    case "K":newHand.cards[index].value = 13;break; // K
-                    case "A":newHand.cards[index].value = 14;break; // A
-                    default:Debugger.Break();break;
+                        switch(value[0].ToString() )
+                        {
+                        case "2":newHand.cards[index].value = 2;break;
+                        case "3":newHand.cards[index].value = 3;break;
+                        case "4":newHand.cards[index].value = 4;break;
+                        case "5":newHand.cards[index].value = 5;break;
+                        case "6":newHand.cards[index].value = 6;break;
+                        case "7":newHand.cards[index].value = 7;break;
+                        case "8":newHand.cards[index].value = 8;break;
+                        case "9":newHand.cards[index].value = 9;break;
+                        case "X":newHand.cards[index].value = 10;break;
+                        case "J":newHand.cards[index].value = 11;break; // J
+                        case "Q":newHand.cards[index].value = 12;break; // Q
+                        case "K":newHand.cards[index].value = 13;break; // K
+                        case "A":newHand.cards[index].value = 14;break; // A
+                        default:return XElement.Parse(xml);
+                        }
+                    }
+                    catch
+                    {
+                        return XElement.Parse(xml);
                     }
 
-                    switch(value[1].ToString() )
+                    // verify and convert card suit
+                    try
                     {
-                    case "C":newHand.cards[index].suit = 1;break; // clover
-                    case "H":newHand.cards[index].suit = 2;break; // hearts
-                    case "S":newHand.cards[index].suit = 3;break; // spades
-                    case "D":newHand.cards[index].suit = 4;break; // diamonds
-                    default:Debugger.Break();break;
+                        switch(value[1].ToString() )
+                        {
+                        case "C":newHand.cards[index].suit = 1;break; // clover
+                        case "H":newHand.cards[index].suit = 2;break; // hearts
+                        case "S":newHand.cards[index].suit = 3;break; // spades
+                        case "D":newHand.cards[index].suit = 4;break; // diamonds
+                        default:return XElement.Parse(xml);
+                        }
+                    }
+                    catch
+                    {
+                        return XElement.Parse(xml);
                     }
                 }
 
-                if(index!=0 && index!=5)
-                    Debugger.Break();
+                // check for wrong number of cards
+                if(index!=-1 && index!=5)
+                    return XElement.Parse(xml);
 
                 PokerHandSort(ref newHand);
 
                 pokerHands.Add(newHand);
             }
 
-            if(index!=0 && index!=5)
-                Debugger.Break();
-
-            xmlReader.Dispose();
+            // check for wrong number of cards
+            if(index!=-1 && index!=5)
+                return XElement.Parse(xml);
 
             return CompareHands(pokerHands);
         }
@@ -742,6 +774,7 @@ namespace Poker
             "  <result>#USER# #STATUS#</result>\r\n" +
             "</results>";
 
+            // do bucket sort of all hands within their highest rank (9 ranks)
             PokerHandList[] bucketSort = new PokerHandList[9];
             for(int index = 0; index<bucketSort.Length; index++)
             {
@@ -761,6 +794,7 @@ namespace Poker
                 else bucketSort[8].Add(hand);
             }
 
+            // compare hands of the higest rank to see which is highest
             for(int sortIndex = 0; sortIndex<bucketSort.Length; sortIndex++)
             {
                 PokerHandList bucket = bucketSort[sortIndex];
@@ -771,6 +805,7 @@ namespace Poker
 
                     if(bucket.Count == 1)
                     {
+                        // there is only one player with the highest rank
                         xml = xml.Replace("#USER#", highestHand.name);
                         xml = xml.Replace("#STATUS#", "wins");
                         return XElement.Parse(xml);
@@ -815,12 +850,14 @@ namespace Poker
                         return XElement.Parse(xml);
                     }
 
+                    // one player had a higher value than others of the same rank
                     xml = xml.Replace("#USER#", highestHand.name);
                     xml = xml.Replace("#STATUS#", "wins");
                     return XElement.Parse(xml);
                 }
             }
 
+            // no players
             xml = xml.Replace("#USER#", "NO");
             xml = xml.Replace("#STATUS#", "PLAYERS");
             return XElement.Parse(xml);

@@ -2,18 +2,12 @@
 <hands>
   <hand>
     <name>Ted</name>
-    <card>2H</card>
-    <card>3D</card>
-    <card>5S</card>
-    <card>9C</card>
-    <card>KD</card>
   </hand>
   <hand>
-    <name>Louis</name>
     <card>2C</card>
     <card>3H</card>
     <card>4S</card>
     <card>8C</card>
-    <card>AF</card>
+    <card>AH</card>
   </hand>
 </hands>
