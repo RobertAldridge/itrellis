@@ -11,7 +11,6 @@ using Math = System.Math;
 using MemoryStream = System.IO.MemoryStream;
 using ReaderOptions = System.Xml.Linq.ReaderOptions;
 using StreamReader = System.IO.StreamReader;
-//using XmlDocument = System.Xml.XmlDocument;
 using XElement = System.Xml.Linq.XElement;
 using XmlReader = System.Xml.XmlReader;
 using XmlReaderSettings = System.Xml.XmlReaderSettings;
@@ -59,16 +58,16 @@ namespace Poker
             {
                 name = newName;
 
-                cards = new PokerCard[newCards.Length];
+                cards = new PokerCard[5];
 
-                for(int index = 0; index < cards.Length; index++)
+                for(int index = 0; index < 5; index++)
                 {
                     cards[index] = newCards[index];
                 }
             }
             public int lowestPairIndex()
             {
-                for(int index = 1; index < cards.Length; index++)
+                for(int index = 1; index < 5; index++)
                 {
                     if(PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -80,7 +79,7 @@ namespace Poker
             }
             public int highestPairIndex()
             {
-                for(int index = cards.Length-1; index > 0; index--)
+                for(int index = 4; index > 0; index--)
                 {
                     if(PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -92,7 +91,7 @@ namespace Poker
             }
             public int lowestPairValue()
             {
-                for(int index = 1; index < cards.Length; index++)
+                for(int index = 1; index < 5; index++)
                 {
                     if(PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -104,7 +103,7 @@ namespace Poker
             }
             public int highestPairValue()
             {
-                for(int index = cards.Length-1; index > 0; index--)
+                for(int index = 4; index > 0; index--)
                 {
                     if(PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -116,7 +115,7 @@ namespace Poker
             }
             public bool isAnyTwo()
             {
-                for(int index = 1; index < cards.Length; index++)
+                for(int index = 1; index < 5; index++)
                 {
                     if(PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -140,7 +139,7 @@ namespace Poker
             }
             public bool isAnyThree()
             {
-                for(int index = 2; index < cards.Length; index++)
+                for(int index = 2; index < 5; index++)
                 {
                     if(PokerCard.isSameValue(cards[index-2], cards[index-1] ) && PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -156,7 +155,7 @@ namespace Poker
             }
             public bool isStraight()
             {
-                for(int index = 1; index < cards.Length; index++)
+                for(int index = 1; index < 5; index++)
                 {
                     if(!PokerCard.isConsecutiveValue(cards[index-1], cards[index] ) )
                     {
@@ -168,7 +167,7 @@ namespace Poker
             }
             public bool isFlush()
             {
-                for(int index = 1; index < cards.Length; index++)
+                for(int index = 1; index < 5; index++)
                 {
                     if(!PokerCard.isSameSuit(cards[index-1], cards[index] ) )
                     {
@@ -184,7 +183,7 @@ namespace Poker
             }
             public bool isAnyFour()
             {
-                for(int index = 3; index < cards.Length; index++)
+                for(int index = 3; index < 5; index++)
                 {
                     if(PokerCard.isSameValue(cards[index-3], cards[index-2] ) && PokerCard.isSameValue(cards[index-2], cards[index-1] ) && PokerCard.isSameValue(cards[index-1], cards[index] ) )
                     {
@@ -325,7 +324,7 @@ namespace Poker
 
             public bool whatValueTwoPairs(ref int insideHigh2, ref int insideLow2, ref int outside)
             {
-                if(PokerCard.isSameValue(cards[0], cards[1]) && PokerCard.isSameValue(cards[2], cards[3]))
+                if(PokerCard.isSameValue(cards[0], cards[1] ) && PokerCard.isSameValue(cards[2], cards[3] ) )
                 {
                     insideHigh2 = cards[3].value;
                     insideLow2 = cards[1].value;
@@ -333,7 +332,7 @@ namespace Poker
                     return true;
                 }
 
-                if(PokerCard.isSameValue(cards[0], cards[1]) && PokerCard.isSameValue(cards[3], cards[4]))
+                if(PokerCard.isSameValue(cards[0], cards[1] ) && PokerCard.isSameValue(cards[3], cards[4] ) )
                 {
                     insideHigh2 = cards[4].value;
                     insideLow2 = cards[1].value;
@@ -341,7 +340,7 @@ namespace Poker
                     return true;
                 }
 
-                if(PokerCard.isSameValue(cards[1], cards[2]) && PokerCard.isSameValue(cards[3], cards[4]))
+                if(PokerCard.isSameValue(cards[1], cards[2] ) && PokerCard.isSameValue(cards[3], cards[4] ) )
                 {
                     insideHigh2 = cards[4].value;
                     insideLow2 = cards[2].value;
@@ -353,7 +352,7 @@ namespace Poker
             }
             public static int CompareTwoPairs(PokerHand lhs, PokerHand rhs)
             {
-                if(!lhs.isOnlyTwoPairs() || !rhs.isOnlyTwoPairs())
+                if(!lhs.isOnlyTwoPairs() || !rhs.isOnlyTwoPairs() )
                 {
                     return 0;
                 }
@@ -397,29 +396,23 @@ namespace Poker
 
                 return 0;
             }
-            public bool whatValueThreeOfAKind(ref int inside3, ref int outsideHigh, ref int outsideLow)
+            public bool whatValueThreeOfAKind(ref int inside3)
             {
                 if(PokerCard.isSameValue(cards[0], cards[1] ) && PokerCard.isSameValue(cards[1], cards[2] ) )
                 {
                     inside3 = cards[2].value;
-                    outsideHigh = cards[4].value;
-                    outsideLow = cards[3].value;
                     return true;
                 }
 
                 if(PokerCard.isSameValue(cards[1], cards[2] ) && PokerCard.isSameValue(cards[2], cards[3] ) )
                 {
                     inside3 = cards[3].value;
-                    outsideHigh = cards[4].value;
-                    outsideLow = cards[0].value;
                     return true;
                 }
 
                 if(PokerCard.isSameValue(cards[2], cards[3] ) && PokerCard.isSameValue(cards[3], cards[4] ) )
                 {
                     inside3 = cards[4].value;
-                    outsideHigh = cards[1].value;
-                    outsideLow = cards[0].value;
                     return true;
                 }
 
@@ -433,38 +426,16 @@ namespace Poker
                 }
 
                 int lhsIn3 = 0;
-                int lhsOut1 = 0;
-                int lhsOut2 = 0;
-                lhs.whatValueThreeOfAKind(ref lhsIn3, ref lhsOut1, ref lhsOut2);
+                lhs.whatValueThreeOfAKind(ref lhsIn3);
 
                 int rhsIn3 = 0;
-                int rhsOut1 = 0;
-                int rhsOut2 = 0;
-                rhs.whatValueThreeOfAKind(ref rhsIn3, ref rhsOut1, ref rhsOut2);
+                rhs.whatValueThreeOfAKind(ref rhsIn3);
 
                 if(lhsIn3 > rhsIn3)
                 {
                     return -1;
                 }
                 if(lhsIn3 < rhsIn3)
-                {
-                    return 1;
-                }
-
-                if(lhsOut1 > rhsOut1)
-                {
-                    return -1;
-                }
-                if(lhsOut1 < rhsOut1)
-                {
-                    return 1;
-                }
-
-                if(lhsOut2 > rhsOut2)
-                {
-                    return -1;
-                }
-                if(lhsOut2 < rhsOut2)
                 {
                     return 1;
                 }
@@ -491,7 +462,7 @@ namespace Poker
             }
             public static int CompareFlush(PokerHand lhs, PokerHand rhs)
             {
-                if(!lhs.isFlush() || !rhs.isFlush())
+                if(!lhs.isFlush() || !rhs.isFlush() )
                 {
                     return 0;
                 }
@@ -510,19 +481,17 @@ namespace Poker
 
                 return 0;
             }
-            public bool whatValueFullHouse(ref int inside3, ref int inside2)
+            public bool whatValueFullHouse(ref int inside3)
             {
                 if(PokerCard.isSameValue(cards[0], cards[1] ) && PokerCard.isSameValue(cards[1], cards[2] ) )
                 {
                     inside3 = cards[2].value;
-                    inside2 = cards[4].value;
                     return true;
                 }
 
                 if(PokerCard.isSameValue(cards[2], cards[3] ) && PokerCard.isSameValue(cards[3], cards[4] ) )
                 {
                     inside3 = cards[4].value;
-                    inside2 = cards[1].value;
                     return true;
                 }
 
@@ -536,12 +505,10 @@ namespace Poker
                 }
 
                 int lhsIn3 = 0;
-                int lhsIn2 = 0;
-                lhs.whatValueFullHouse(ref lhsIn3, ref lhsIn2);
+                lhs.whatValueFullHouse(ref lhsIn3);
 
                 int rhsIn3 = 0;
-                int rhsIn2 = 0;
-                rhs.whatValueFullHouse(ref rhsIn3, ref rhsIn2);
+                rhs.whatValueFullHouse(ref rhsIn3);
 
                 if(lhsIn3 > rhsIn3)
                 {
@@ -552,30 +519,19 @@ namespace Poker
                     return 1;
                 }
 
-                if(lhsIn2 > rhsIn2)
-                {
-                    return -1;
-                }
-                if(lhsIn2 < rhsIn2)
-                {
-                    return 1;
-                }
-
                 return 0;
             }
-            public bool whatValueFourOfAKind(ref int inside, ref int outside)
+            public bool whatValueFourOfAKind(ref int inside)
             {
                 if(PokerCard.isSameValue(cards[0], cards[1] ) && PokerCard.isSameValue(cards[1], cards[2] ) && PokerCard.isSameValue(cards[2], cards[3] ) )
                 {
                     inside = cards[3].value;
-                    outside = cards[4].value;
                     return true;
                 }
 
                 if(PokerCard.isSameValue(cards[1], cards[2] ) && PokerCard.isSameValue(cards[2], cards[3] ) && PokerCard.isSameValue(cards[3], cards[4] ) )
                 {
                     inside = cards[4].value;
-                    outside = cards[0].value;
                     return true;
                 }
 
@@ -589,27 +545,16 @@ namespace Poker
                 }
 
                 int lhsIn = 0;
-                int lhsOut = 0;
-                lhs.whatValueFourOfAKind(ref lhsIn, ref lhsOut);
+                lhs.whatValueFourOfAKind(ref lhsIn);
 
                 int rhsIn = 0;
-                int rhsOut = 0;
-                rhs.whatValueFourOfAKind(ref rhsIn, ref rhsOut);
+                rhs.whatValueFourOfAKind(ref rhsIn);
 
                 if(lhsIn > rhsIn)
                 {
                     return -1;
                 }
                 if(lhsIn < rhsIn)
-                {
-                    return 1;
-                }
-
-                if(lhsOut > rhsOut)
-                {
-                    return -1;
-                }
-                if(lhsOut < rhsOut)
                 {
                     return 1;
                 }
@@ -679,45 +624,61 @@ namespace Poker
                 index = -1;
 
                 while(!xmlReader.EOF && xmlReader.Name != "name" && xmlReader.Name != "card")
+                {
                     xmlReader.Read();
+                }
 
                 // check for no name
                 if(xmlReader.Name == "card")
+                {
                     return XElement.Parse(xml.Replace("#TYPE#", "no name identifier") );
+                }
 
                 if(!xmlReader.EOF)
+                {
                     xmlReader.MoveToContent();
+                }
 
                 if(xmlReader.EOF)
+                {
                     break;
+                }
 
                 PokerHand newHand;
                 newHand.cards = new PokerCard[5];
                 newHand.name = xmlReader.ReadInnerXml();
 
                 if(newHand.name=="")
+                {
                     return XElement.Parse(xml.Replace("#TYPE#", "name is blank") );
+                }
 
                 while(!xmlReader.EOF && xmlReader.Name != "card")
                 {
                     if(xmlReader.Name == "hand")
+                    {
                         return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
+                    }
 
                     xmlReader.Read();
                 }
                 if(!xmlReader.EOF)
+                {
                     xmlReader.MoveToContent();
+                }
 
                 for(index = 0; index<5 && !xmlReader.EOF; index++)
                 {
                     string value = xmlReader.ReadInnerXml();
                     if(!xmlReader.EOF)
+                    {
                         xmlReader.MoveToContent();
+                    }
 
                     // verify and convert card value
                     try
                     {
-                        switch(value[0].ToString())
+                        switch(value[0].ToString() )
                         {
                         case "2":
                             newHand.cards[index].value = 2;
@@ -770,7 +731,7 @@ namespace Poker
                     // verify and convert card suit
                     try
                     {
-                        switch(value[1].ToString())
+                        switch(value[1].ToString() )
                         {
                         case "C":
                             newHand.cards[index].suit = 1;
@@ -794,7 +755,7 @@ namespace Poker
                     }
 
                     int deckIndex = (newHand.cards[index].value-2) + 13 * (newHand.cards[index].suit-1);
-                    if(pickup52[deckIndex])
+                    if(pickup52[deckIndex] )
                     {
                         return XElement.Parse(xml.Replace("#TYPE#", "duplicate card") );
                     }
@@ -803,7 +764,9 @@ namespace Poker
 
                 // check for wrong number of cards
                 if(index!=-1 && index!=5)
+                {
                     return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
+                }
 
                 PokerHandSort(ref newHand);
 
@@ -812,7 +775,9 @@ namespace Poker
 
             // check for wrong number of cards
             if(index!=-1 && index!=5)
+            {
                 return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
+            }
 
             return CompareHands(pokerHands);
         }
@@ -834,15 +799,42 @@ namespace Poker
 
             foreach(PokerHand hand in hands)
             {
-                if(hand.isStraightFlush() ) bucketSort[0].Add(hand);
-                else if(hand.isFourOfAKind() ) bucketSort[1].Add(hand);
-                else if(hand.isFullHouse() ) bucketSort[2].Add(hand);
-                else if(hand.isFlush() ) bucketSort[3].Add(hand);
-                else if(hand.isStraight() ) bucketSort[4].Add(hand);
-                else if(hand.isOnlyThreeOfAKind() ) bucketSort[5].Add(hand);
-                else if(hand.isOnlyTwoPairs() ) bucketSort[6].Add(hand);
-                else if(hand.isOnlyPair() ) bucketSort[7].Add(hand);
-                else bucketSort[8].Add(hand);
+                if(hand.isStraightFlush() )
+                {
+                    bucketSort[0].Add(hand);
+                }
+                else if(hand.isFourOfAKind() )
+                {
+                    bucketSort[1].Add(hand);
+                }
+                else if(hand.isFullHouse() )
+                {
+                    bucketSort[2].Add(hand);
+                }
+                else if(hand.isFlush() )
+                {
+                    bucketSort[3].Add(hand);
+                }
+                else if(hand.isStraight() )
+                {
+                    bucketSort[4].Add(hand);
+                }
+                else if(hand.isOnlyThreeOfAKind() )
+                {
+                    bucketSort[5].Add(hand);
+                }
+                else if(hand.isOnlyTwoPairs() )
+                {
+                    bucketSort[6].Add(hand);
+                }
+                else if(hand.isOnlyPair() )
+                {
+                    bucketSort[7].Add(hand);
+                }
+                else
+                {
+                    bucketSort[8].Add(hand);
+                }
             }
 
             // compare hands of the higest rank to see which is highest
@@ -867,15 +859,33 @@ namespace Poker
                     {
                         switch(sortIndex)
                         {
-                        case 0: compareResult = PokerHand.CompareStraightFlush(highestHand, bucket[bucketIndex] ); break;
-                        case 1: compareResult = PokerHand.CompareFourOfAKind(highestHand, bucket[bucketIndex] ); break;
-                        case 2: compareResult = PokerHand.CompareFullHouse(highestHand, bucket[bucketIndex] ); break;
-                        case 3: compareResult = PokerHand.CompareFlush(highestHand, bucket[bucketIndex] ); break;
-                        case 4: compareResult = PokerHand.CompareStraight(highestHand, bucket[bucketIndex] ); break;
-                        case 5: compareResult = PokerHand.CompareThreeOfAKind(highestHand, bucket[bucketIndex] ); break;
-                        case 6: compareResult = PokerHand.CompareTwoPairs(highestHand, bucket[bucketIndex] ); break;
-                        case 7: compareResult = PokerHand.ComparePair(highestHand, bucket[bucketIndex] ); break;
-                        case 8: compareResult = PokerHand.CompareHighCard(highestHand, bucket[bucketIndex] ); break;
+                        case 0:
+                            compareResult = PokerHand.CompareStraightFlush(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 1:
+                            compareResult = PokerHand.CompareFourOfAKind(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 2:
+                            compareResult = PokerHand.CompareFullHouse(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 3:
+                            compareResult = PokerHand.CompareFlush(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 4:
+                            compareResult = PokerHand.CompareStraight(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 5:
+                            compareResult = PokerHand.CompareThreeOfAKind(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 6:
+                            compareResult = PokerHand.CompareTwoPairs(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 7:
+                            compareResult = PokerHand.ComparePair(highestHand, bucket[bucketIndex] );
+                            break;
+                        case 8:
+                            compareResult = PokerHand.CompareHighCard(highestHand, bucket[bucketIndex] );
+                            break;
                         }
 
                         if(compareResult == 0)

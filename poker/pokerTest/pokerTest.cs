@@ -35,11 +35,11 @@ namespace PokerTest
             }
 
             // read list of input file names to web service
-            StringList inputDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_inputDataFolderName, "*.xml"));
+            StringList inputDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_inputDataFolderName, "*.xml") );
             inputDataFileNames.Sort();
 
             // read list of verification file names to match against output of web service
-            StringList outputVerifyDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_outputVerifyDataFolderName, "*.xml"));
+            StringList outputVerifyDataFileNames = new StringList(Directory.GetFiles(PokerTest.s_outputVerifyDataFolderName, "*.xml") );
             outputVerifyDataFileNames.Sort();
 
             if(inputDataFileNames.Count != outputVerifyDataFileNames.Count)
@@ -67,23 +67,29 @@ namespace PokerTest
                 }
 
                 // load verification content and convert to XElement
-                string verifyContent = File.ReadAllText(outputVerifyDataFileNames[index]);
+                string verifyContent = File.ReadAllText(outputVerifyDataFileNames[index] );
                 XElement xElementVerify = XElement.Parse(verifyContent);
 
                 // convert XElements back to strings for comparison
                 string blahOutput = xElementOutput.ToString();
-                while(blahOutput.Contains("  "))
+                while(blahOutput.Contains("  ") )
+                {
                     blahOutput = blahOutput.Replace("  ", " ");
+                }
                 blahOutput = blahOutput.Replace(" xmlns=\"\"", "");
 
                 string blahVerify = xElementVerify.ToString();
-                while(blahVerify.Contains("  "))
+                while(blahVerify.Contains("  ") )
+                {
                     blahVerify = blahVerify.Replace("  ", " ");
+                }
                 blahVerify = blahVerify.Replace(" xmlns=\"\"", "");
 
                 // compare output of web api to verification data
-                if(string.Equals(blahOutput, blahVerify, StringComparison.InvariantCultureIgnoreCase))
+                if(string.Equals(blahOutput, blahVerify, StringComparison.InvariantCultureIgnoreCase) )
+                {
                     resultCount++;
+                }
             }
 
             int numFail = inputDataFileNames.Count - resultCount;
@@ -94,9 +100,13 @@ namespace PokerTest
                 return 0;
             }
             else if(resultCount==0)
+            {
                 Console.WriteLine("all tests fail");
+            }
             else
+            {
                 Console.WriteLine(numFail.ToString() + " tests fail");
+            }
 
             Console.WriteLine("poker tests end");
             return -1;
