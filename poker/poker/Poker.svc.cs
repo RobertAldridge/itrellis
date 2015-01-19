@@ -661,7 +661,7 @@ namespace Poker
             string xml =
             "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n" +
             "<results xmlns=\"\">\r\n" +
-            "  <result>MALFORMED DATA</result>\r\n" +
+            "  <result>MALFORMED DATA: #TYPE#</result>\r\n" +
             "</results>";
 
             XmlReader xmlReader = input.CreateReader(ReaderOptions.None);
@@ -683,7 +683,7 @@ namespace Poker
 
                 // check for no name
                 if(xmlReader.Name == "card")
-                    return XElement.Parse(xml);
+                    return XElement.Parse(xml.Replace("#TYPE#", "no name identifier") );
 
                 if(!xmlReader.EOF)
                     xmlReader.MoveToContent();
@@ -696,12 +696,12 @@ namespace Poker
                 newHand.name = xmlReader.ReadInnerXml();
 
                 if(newHand.name=="")
-                    return XElement.Parse(xml);
+                    return XElement.Parse(xml.Replace("#TYPE#", "name is blank") );
 
                 while(!xmlReader.EOF && xmlReader.Name != "card")
                 {
                     if(xmlReader.Name == "hand")
-                        return XElement.Parse(xml);
+                        return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
 
                     xmlReader.Read();
                 }
@@ -759,12 +759,12 @@ namespace Poker
                             newHand.cards[index].value = 14;
                             break; // A
                         default:
-                            return XElement.Parse(xml);
+                            return XElement.Parse(xml.Replace("#TYPE#", "card incorrect value specifier") );
                         }
                     }
                     catch
                     {
-                        return XElement.Parse(xml);
+                        return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
                     }
 
                     // verify and convert card suit
@@ -785,25 +785,25 @@ namespace Poker
                             newHand.cards[index].suit = 4;
                             break; // diamonds
                         default:
-                            return XElement.Parse(xml);
+                            return XElement.Parse(xml.Replace("#TYPE#", "card incorrect suit specifier") );
                         }
                     }
                     catch
                     {
-                        return XElement.Parse(xml);
+                        return XElement.Parse(xml.Replace("#TYPE#", "card identifier is incorrect length") );
                     }
 
                     int deckIndex = (newHand.cards[index].value-2) + 13 * (newHand.cards[index].suit-1);
                     if(pickup52[deckIndex])
                     {
-                        return XElement.Parse(xml);
+                        return XElement.Parse(xml.Replace("#TYPE#", "duplicate card") );
                     }
                     pickup52[deckIndex] = true;
                 }
 
                 // check for wrong number of cards
                 if(index!=-1 && index!=5)
-                    return XElement.Parse(xml);
+                    return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
 
                 PokerHandSort(ref newHand);
 
@@ -812,7 +812,7 @@ namespace Poker
 
             // check for wrong number of cards
             if(index!=-1 && index!=5)
-                return XElement.Parse(xml);
+                return XElement.Parse(xml.Replace("#TYPE#", "hand does not contain 5 cards") );
 
             return CompareHands(pokerHands);
         }
