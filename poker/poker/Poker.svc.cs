@@ -655,6 +655,9 @@ namespace Poker
 
         public XElement OminousPokerFunction(XElement input)
         {
+            // straight poker has only one deck so make sure there are no duplicate cards
+            bool[] pickup52 = new bool[52];
+
             string xml =
             "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n" +
             "<results xmlns=\"\">\r\n" +
@@ -714,22 +717,49 @@ namespace Poker
                     // verify and convert card value
                     try
                     {
-                        switch(value[0].ToString() )
+                        switch(value[0].ToString())
                         {
-                        case "2":newHand.cards[index].value = 2;break;
-                        case "3":newHand.cards[index].value = 3;break;
-                        case "4":newHand.cards[index].value = 4;break;
-                        case "5":newHand.cards[index].value = 5;break;
-                        case "6":newHand.cards[index].value = 6;break;
-                        case "7":newHand.cards[index].value = 7;break;
-                        case "8":newHand.cards[index].value = 8;break;
-                        case "9":newHand.cards[index].value = 9;break;
-                        case "X":newHand.cards[index].value = 10;break;
-                        case "J":newHand.cards[index].value = 11;break; // J
-                        case "Q":newHand.cards[index].value = 12;break; // Q
-                        case "K":newHand.cards[index].value = 13;break; // K
-                        case "A":newHand.cards[index].value = 14;break; // A
-                        default:return XElement.Parse(xml);
+                        case "2":
+                            newHand.cards[index].value = 2;
+                            break;
+                        case "3":
+                            newHand.cards[index].value = 3;
+                            break;
+                        case "4":
+                            newHand.cards[index].value = 4;
+                            break;
+                        case "5":
+                            newHand.cards[index].value = 5;
+                            break;
+                        case "6":
+                            newHand.cards[index].value = 6;
+                            break;
+                        case "7":
+                            newHand.cards[index].value = 7;
+                            break;
+                        case "8":
+                            newHand.cards[index].value = 8;
+                            break;
+                        case "9":
+                            newHand.cards[index].value = 9;
+                            break;
+                        case "X":
+                            newHand.cards[index].value = 10;
+                            break;
+                        case "J":
+                            newHand.cards[index].value = 11;
+                            break; // J
+                        case "Q":
+                            newHand.cards[index].value = 12;
+                            break; // Q
+                        case "K":
+                            newHand.cards[index].value = 13;
+                            break; // K
+                        case "A":
+                            newHand.cards[index].value = 14;
+                            break; // A
+                        default:
+                            return XElement.Parse(xml);
                         }
                     }
                     catch
@@ -740,19 +770,35 @@ namespace Poker
                     // verify and convert card suit
                     try
                     {
-                        switch(value[1].ToString() )
+                        switch(value[1].ToString())
                         {
-                        case "C":newHand.cards[index].suit = 1;break; // clover
-                        case "H":newHand.cards[index].suit = 2;break; // hearts
-                        case "S":newHand.cards[index].suit = 3;break; // spades
-                        case "D":newHand.cards[index].suit = 4;break; // diamonds
-                        default:return XElement.Parse(xml);
+                        case "C":
+                            newHand.cards[index].suit = 1;
+                            break; // clover
+                        case "H":
+                            newHand.cards[index].suit = 2;
+                            break; // hearts
+                        case "S":
+                            newHand.cards[index].suit = 3;
+                            break; // spades
+                        case "D":
+                            newHand.cards[index].suit = 4;
+                            break; // diamonds
+                        default:
+                            return XElement.Parse(xml);
                         }
                     }
                     catch
                     {
                         return XElement.Parse(xml);
                     }
+
+                    int deckIndex = (newHand.cards[index].value-2) + 13 * (newHand.cards[index].suit-1);
+                    if(pickup52[deckIndex])
+                    {
+                        return XElement.Parse(xml);
+                    }
+                    pickup52[deckIndex] = true;
                 }
 
                 // check for wrong number of cards
